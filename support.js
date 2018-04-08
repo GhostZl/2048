@@ -1,8 +1,8 @@
 function getPosTop(i, j) {
-    return 20 + i*120;
+    return 0.5 + i*2.1;
 }
 function getPosLeft(i, j) {
-    return 20 + j*120;
+    return 0.5 + j*2.1;
 }
 function getNumberBackgroundColor(num) {
     switch (num){
