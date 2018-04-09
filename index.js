@@ -5,9 +5,48 @@ var startx = 0;
 var starty = 0;
 var endx = 0;
 var endy = 0;
-var documentWidth = window.innerWidth;
+var boardWidth = '';
 $(document).ready(function() {
     newgame();
+    boardWidth = $('#grid-container').width();
+        document.getElementById('grid-container').addEventListener('touchstart', function(event){
+        startx = event.touches[0].pageX;
+        starty = event.touches[0].pageY;
+    });
+    document.getElementById('grid-container').addEventListener('touchend', function(event){
+        endx = event.changedTouches[0].pageX;
+        endy = event.changedTouches[0].pageY;
+        var deltax = endx-startx;
+        var deltay = starty-endy;
+        if (Math.abs(deltax)<0.3*boardWidth && Math.abs(deltay)<0.3*boardWidth) {
+            return false;
+        }
+        if (Math.abs(deltax)> Math.abs(deltay)) {
+            if (deltax>0) {
+                if (moveRight()) {
+                    setTimeout('generateOneNumber()', 210);
+                    setTimeout('isgameover()',500);
+                }
+            } else {
+                if (moveLeft()) {
+                    setTimeout('generateOneNumber()', 210);
+                    setTimeout('isgameover()',500);
+                }
+            }
+        } else {
+            if (deltay>0) {
+                if (moveUp()) {
+                    setTimeout('generateOneNumber()', 210);
+                    setTimeout('isgameover()',500);
+                }
+            } else {
+                if (moveDown()) {
+                    setTimeout('generateOneNumber()', 210);
+                    setTimeout('isgameover()',500);
+                }
+            }
+        }
+    });
 });
 function newgame() {
     //初始化棋盘
@@ -81,44 +120,6 @@ function generateOneNumber() {
     return true;
 }
  
-document.addEventListener('touchstart', function(event){
-    startx = event.touches[0].pageX;
-    starty = event.touches[0].pageY;
-});
-document.addEventListener('touchend', function(event){
-    endx = event.changedTouches[0].pageX;
-    endy = event.changedTouches[0].pageY;
-    var deltax = endx-startx;
-    var deltay = starty-endy;
-    if (Math.abs(deltax)<0.3*documentWidth && Math.abs(deltay)<0.3*documentWidth) {
-        return false;
-    }
-    if (Math.abs(deltax)> Math.abs(deltay)) {
-        if (deltax>0) {
-            if (moveRight()) {
-                setTimeout('generateOneNumber()', 210);
-                setTimeout('isgameover()',500);
-            }
-        } else {
-            if (moveLeft()) {
-                setTimeout('generateOneNumber()', 210);
-                setTimeout('isgameover()',500);
-            }
-        }
-    } else {
-        if (deltay>0) {
-            if (moveUp()) {
-                setTimeout('generateOneNumber()', 210);
-                setTimeout('isgameover()',500);
-            }
-        } else {
-            if (moveDown()) {
-                setTimeout('generateOneNumber()', 210);
-                setTimeout('isgameover()',500);
-            }
-        }
-    }
-});
 
 $(document).keydown(function (event) {
     switch (event.keyCode) {
