@@ -9,11 +9,13 @@ var boardWidth = '';
 $(document).ready(function() {
     newgame();
     boardWidth = $('#grid-container').width();
-        document.getElementById('grid-container').addEventListener('touchstart', function(event){
+    document.getElementById('grid-container').addEventListener('touchstart', function(event){
+        e.stopPropagation();
         startx = event.touches[0].pageX;
         starty = event.touches[0].pageY;
     });
     document.getElementById('grid-container').addEventListener('touchend', function(event){
+        e.stopPropagation();
         endx = event.changedTouches[0].pageX;
         endy = event.changedTouches[0].pageY;
         var deltax = endx-startx;
