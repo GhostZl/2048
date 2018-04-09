@@ -10,12 +10,14 @@ $(document).ready(function() {
     newgame();
     boardWidth = $('#grid-container').width();
     document.getElementById('grid-container').addEventListener('touchstart', function(event){
-        e.stopPropagation();
+        event.stopPropagation();
+        event.preventDefault();
         startx = event.touches[0].pageX;
         starty = event.touches[0].pageY;
     });
     document.getElementById('grid-container').addEventListener('touchend', function(event){
-        e.stopPropagation();
+        event.stopPropagation();
+        event.preventDefault();
         endx = event.changedTouches[0].pageX;
         endy = event.changedTouches[0].pageY;
         var deltax = endx-startx;
